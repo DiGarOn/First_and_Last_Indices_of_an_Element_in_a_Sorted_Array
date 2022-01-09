@@ -39,3 +39,6 @@ if __name__ == '__main__':
     x = 2
     print(Solution().getRange(arr, x))
     # [1, 4]
+    x = 5
+    print(Solution().getRange(arr, x))
+    # -1
