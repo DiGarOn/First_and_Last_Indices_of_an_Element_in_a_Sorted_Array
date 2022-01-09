@@ -1,16 +1,31 @@
 class Solution:
-    def bin_search(self, arr, target):
-        left = 0
-        right = len(arr)
+    def bin_search_left(self, arr, target):
+        left = -1
+        right = len(arr) - 1
         med = (left+right)//2
-        while(arr[med] != target and left < right -1):
-            if(arr[med] > target):
+        while(left < right -1):
+            if(arr[med] >= target):
                 right = med
             else:
                 left = med
             med = (left+right)//2
-        if(arr[med] == target):
-            return med
+        if(arr[right] == target):
+            return right
+        else:
+            return -1
+
+    def bin_search_right(self, arr, target):
+        left = 0
+        right = len(arr)
+        med = (left+right)//2
+        while(left < right -1):
+            if(arr[med] <= target):
+                left = med
+            else:
+                right = med
+            med = (left+right)//2
+        if(arr[left] == target):
+            return left
         else:
             return -1
 
@@ -21,18 +36,10 @@ class Solution:
             return mas
 
     def getRange(self, arr, target):
-        pos = Solution().bin_search( arr, target)
-        i = pos
-        if(pos != -1):
-            while(arr[i] == target and i > 0):
-                i -= 1
-            if(arr[i] != target):
-                i += 1 
-            while(arr[pos] == target and pos < len(arr)-1):
-                pos += 1
-            if(arr[pos] != target):
-                pos -= 1
-        return Solution().check_ans([i, pos])
+        right = Solution().bin_search_right( arr, target)
+        left = Solution().bin_search_left( arr, target)
+        return Solution().check_ans([left, right])
+
 if __name__ == '__main__':
     # Test program 
     arr = [1, 2, 2, 2, 2, 3, 4, 7, 8, 8] 
